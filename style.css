@@ -92,10 +92,12 @@ nav a:hover {
 
 
 .hero-content {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.5);
   padding: 30px;
   border-radius: 10px;
+  max-width: 500px;
 }
+
 
 .btn-primary {
   display: inline-block;
