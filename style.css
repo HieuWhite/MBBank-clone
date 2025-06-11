@@ -80,7 +80,7 @@ nav a:hover {
 
 /* Hero */
 .hero {
-  background: url('./images/mb-dream-home.png') no-repeat center center/cover;
+  background: url('./images/mbfake.png') no-repeat center center/cover;
   height: 500px;
   display: flex;
   align-items: center;
