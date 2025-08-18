@@ -1,0 +1,205 @@
+            }
+
+            foreach (var (className, schemaClass) in schema.Classes)
+            {
+                if (IgnoreClasses.Contains(className))
+                    continue;
+
+                allClasses[className] = schemaClass with { Name = className };
+            }
+        }
+
+        var parentToChildMap = allClasses.Where(kvp => kvp.Value.Parent != null)
+            .GroupBy(kvp => kvp.Value.Parent!)
+            .ToDictionary(g => g.Key, g => g.ToImmutableList());
+
+        // Generate graph of classes -> fields
+        var graph = new AdjacencyGraph<string, Edge<string>>();
+
+        // Types used as pointers
+        var pointeeTypes = new HashSet<string>();
+
+        foreach (var (className, schemaClass) in allClasses)
+        {
+            if (schemaClass.Parent != null)
+                graph.AddVerticesAndEdge(new Edge<string>(className, schemaClass.Parent));
+
+            foreach (var field in schemaClass.Fields)
+            {
+                var currentType = field.Type;
+                while (currentType != null)
+                {
+                    if (currentType.IsDeclared)
+                    {
+                        graph.AddVerticesAndEdge(new Edge<string>(className, currentType.Name));
+                    }
+
+                    currentType = currentType.Inner;
+                }
+
+                // Pointers mean we need to add references to the child classes of referenced type
+                if (field.Type.Category == SchemaTypeCategory.Ptr)
+                {
+                    var childClasses = parentToChildMap.GetValueOrDefault(
+                        field.Type.Inner!.Name,
+                        ImmutableList<KeyValuePair<string, SchemaClass>>.Empty);
+
+                    var queue = new Queue<(string, string)>(childClasses.Select(x => (className, x.Key)));
+
+                    while (queue.Count > 0)
+                    {
+                        var (parent, childClass) = queue.Dequeue();
+
+                        graph.AddVerticesAndEdge(new Edge<string>(parent, childClass));
+
+                        var myChildren = parentToChildMap.GetValueOrDefault(
+                            childClass,
+                            ImmutableList<KeyValuePair<string, SchemaClass>>.Empty);
+                        foreach (var (toAdd, _) in myChildren)
+                        {
+                            queue.Enqueue((childClass, toAdd));
+                        }
+                    }
+
+                    pointeeTypes.Add(field.Type.Inner!.Name);
+                }
+            }
+        }
+
+        // Do a search from NetworkClasses.Names
+        var visited = new HashSet<string>();
+        var search = new BreadthFirstSearchAlgorithm<string, Edge<string>>(graph);
+        search.FinishVertex += node => { visited.Add(node); };
+
+        foreach (var networkClassName in NetworkClasses.Names)
+        {
+            search.Compute(networkClassName);
+        }
+
+        // Clear output directory
+        if (Directory.Exists(outputPath))
+        {
+            string[] files = Directory.GetFiles(outputPath, "*", SearchOption.AllDirectories);
+            foreach (string file in files)
+            {
+                File.Delete(file);
+            }
+        }
+
+        Directory.CreateDirectory(Path.Combine(outputPath, "Enums"));
+        Directory.CreateDirectory(Path.Combine(outputPath, "Classes"));
+
+        var enumBuilder = GetTemplate(false);
+        foreach (var (enumName, schemaEnum) in allEnums)
+        {
+            var newBuilder = new StringBuilder(enumBuilder.ToString());
+            WriteEnum(newBuilder, enumName, schemaEnum);
+            File.WriteAllText(Path.Combine(outputPath, "Enums", $"{SanitiseTypeName(enumName)}.g.cs"),
+                newBuilder.ToString().ReplaceLineEndings("\r\n"));
+        }
+
+        // Manually whitelist some classes
+        visited.Add("CTakeDamageInfo");
+        visited.Add("CEntitySubclassVDataBase");
+        visited.Add("CFiringModeFloat");
+        visited.Add("CFiringModeInt");
+        visited.Add("CSkillFloat");
+        visited.Add("CSkillInt");
+        visited.Add("CRangeFloat");
+        visited.Add("CNavLinkAnimgraphVar");
++-----+---------+----------------------+--------------+-------------+-------------------+--------------+----------------+
+| STT |   MKH   |      Khach hang      |   CMT/CCCD   |   Ngay mo   |    So du (VND)    | Lai suat (%) | Ky han (thang) |
++-----+---------+----------------------+--------------+-------------+-------------------+--------------+----------------+
+| 1   | T78344  | HoangDangQuang@vpbank.com.vn     | 69696969 | 23/03/2010  | 19,000,001.00     | 6.7          | 6              | 
++-----+---------+----------------------+--------------+-------------+-------------------+--------------+----------------+
+| 2   | N74747  | LeTuanQuang@vpbank.com.vn         | 696969696  | 06/07/2020  | 10,000,000.00      | 4.2          | N/A         
+
+        var classBuilder = GetTemplate(true);
+
+        var visitedClassNames = new HashSet<string>();
+        foreach (var (className, schemaClass) in allClasses)
+        {
+            if (visited.Contains(className) || className.Contains("VData"))
+            {
+                var isPointeeType = pointeeTypes.Contains(className);
+
+                var newBuilder = new StringBuilder(classBuilder.ToString());
+                WriteClass(newBuilder, className, schemaClass, allClasses, isPointeeType);
+                visitedClassNames.Add(className);
+
+                File.WriteAllText(Path.Combine(outputPath, "Classes", $"{SanitiseTypeName(className)}.g.cs"),
+                    newBuilder.ToString().ReplaceLineEndings("\r\n"));
+            }
+        }
+    }
+
+    private static IEnumerable<(SchemaClass clazz, SchemaField field)> GetAllParentFields(
+        SchemaClass schemaClass,
+        SortedDictionary<string, SchemaClass> allClasses)
+    {
+        while (schemaClass.Parent != null)
+        {
+            allClasses.TryGetValue(schemaClass.Parent, out var parentClass);
+            if (parentClass == null)
+                break;
+
+            foreach (var field in parentClass.Fields)
+            {
+                yield return (parentClass, field);
+            }
+
+            schemaClass = parentClass;
+        }
+    }
+
+    private static void WriteClass(
+        StringBuilder builder,
+        string schemaClassName,
+        SchemaClass schemaClass,
+        SortedDictionary<string, SchemaClass> allClasses,
+        bool isPointeeType)
+    {
+        var isEntityClass =
+            NetworkClasses.Names.Contains(schemaClassName)
+            || NetworkClasses.Names.Contains(schemaClass.Parent ?? "");
+
+        var classNameCs = SanitiseTypeName(schemaClassName);
+
+        builder.AppendLine();
+        builder.Append($"public partial class {classNameCs}");
+
+        (SchemaClass clazz, SchemaField field)[] parentFields = [];
+        if (schemaClass.Parent != null)
+        {
+            builder.Append($" : {schemaClass.Parent}");
+            parentFields = GetAllParentFields(schemaClass, allClasses).ToArray();
+        }
+
+        if (schemaClass.Parent == null)
+        {
+            builder.Append($" : NativeObject");
+        }
+
+        builder.AppendLine();
+        builder.AppendLine("{");
+
+        // All entity classes eventually derive from CEntityInstance,
+        // which is the root networkable class.
+
+        builder.AppendLine(
+            $"    public {classNameCs} (IntPtr pointer) : base(pointer) {{}}");
+        builder.AppendLine();
+
+        foreach (var field in schemaClass.Fields)
+        {
+            if (IgnoreClassWildcards.Any(y => field.Type.Name.Contains(y)))
+                continue;
+
+            // Putting these in the too hard basket for now.
+            if (field.Name == "m_VoteOptions" || field.Name == "m_aShootSounds" ||
+                field.Name == "m_pVecRelationships") continue;
+            if (IgnoreClasses.Contains(field.Type.Name)) continue;
+            if (field.Type.Category == SchemaTypeCategory.Bitfield) continue;
+
+            if (field.Type is { Category: SchemaTypeCategory.Atomic, Atomic: SchemaAtomicCategory.Collection })
+            {
