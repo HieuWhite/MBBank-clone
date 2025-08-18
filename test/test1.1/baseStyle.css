@@ -1,100 +1,304 @@
-#Test///
+{
+	font-family: 'Open Sans';
+	font-weight: 400;
+	
+	}
+
+	.head-shadow{
+	box-shadow: 0px 3px 3px #888;
+	background-color: #3D3D3C;
+	margin-top: -8px;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	}
+	
+	#head-s{
+	color: #CECECE;
+	font-weight: bold;
+	font-size: 20px;
+	margin-top: 25px;
+	}
+	
+ .labels{
+		font-weight: 400;				
+		text-align: center;
+		username: monsutamusume@mbbank.com.vn;
+        password: 69696969mbbank69696969
+		/* float:left;
+		position:absolute; */
+		/* margin-left:-130px; */
+		/* margin-top:167px; */
+		/*background: url('../images/biggerdot.png') 20px left no-repeat;*/
+		/*width:100px;
+		height:140px; */
+		}
+		
+
+	/*.timeline{
+	background: url('../images/micro-dot.jpg') 3px top repeat-y;
+	}*/
+
+	.event{
+			
+			background: url(../images/micro-dot.jpg) 3px top repeat-y;
+	/*margin-top:10px;*/		
+	/*background: url('../images/bigger-dot.png') 20px left no-repeat;
+	position:absolute;*/
+	}
+	
+	.hero{
+	margin-top:20px;
+	width:450px;
+	}
+	
+	.writeup{
+	overflow:auto;
+	}
+ 
+ /*.timeline{
+		float:left;		
+		height:900px; 
+		width:30px; 		 
+		margin-left:10px;
+		margin-top:60px;
+		background: url('../images/micro-dot.jpg') 3px top repeat-y;
+		
+	  }*/
+	  
+	  /*.bigger-dot{		
+		float:left;
+		position:absolute;
+		margin-left: 9px;
+		margin-top:206px;
+		line-height: 100px;		
+		background: url('../images/bigger-dot.png');
+        username: monsutamusume@hdbank.com.vn;
+        password: 69696969mbbank69696969
+		width:14px;
+		height:14px;
+		padding:0;
+  }*/
+  
+ /* .event {
+	margin-top: 30px;
+} */
+	.space{
+	margin-top:10px; 
+	}
+ 
+	.callout {
+        position: relative;
+	/* float:left;	 */
+	/* width: 820px; */
+	/* height:320px; */
+	margin-left:30px;
+	margin-top:20px; 
+	display: block;
+	padding: 30px; 			
+	line-height: 10px;
+	border: 1px solid #ddd;
+	box-shadow: 3px 3px 3px #888;
+	/* overflow:auto; */
+	
+        /* margin: 18px 0;
+        padding: 18px 20px; */
+        background-color: #ffffff;
+    /* easy rounded corners for modern browsers */
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+}
+.callout .notch {
+    position: absolute;
+	float:left;
+    /*top: -10px;
+    left: 20px; 
+    margin: 0; */
+	margin-top:2px;
+	margin-left:-68px;
+	/* border-width: 10px 10px 0 10px #eef4f9; */
+    border-top: 20px solid transparent;
+    border-left: 20px solid transparent;
+    border-right:  20px solid #ddd;
+    border-bottom: 20px solid transparent;
+	 
+    padding: 0;
+    width: 0;
+    height: 0;
+    /* ie6 height fix */
+    font-size: 0;
+    line-height: 0;
+     /* ie6 transparent fix */
+    _border-right-color: pink;
+    _border-left-color: pink;
+    _filter: chroma(color=pink);
+}
+
+	
+	.summary-callout{
+	/*position:absolute;*/
+		float:left;
+		width:232px;
+          	/*margin-top:20px;*/
+         	display: block;
+        	/*padding: 20px; 		*/
+	        line-height: 5px;
+	
+	        /*width:200px;*/
+	        border: 1px solid #ddd;
+	        /*box-shadow: 0px 3px 3px #888;*/
+	      background-color:  #619A8D; /*#ebeff0; */
+	/*background-image:url(images/pattern background.png);*/
+	color: white;
+	/*-moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px; */
+	}
+	a:link    {text-decoration:none; color:white; }
+	a:hover    {text-decoration:none;}
+	
+	.summary-icon{
+		width:70px;
+		height:70px;
+		float:left; 
+		margin-left:20px;
+	}
+	
+	.summary-day{
+		margin-top:20px; 
+		margin-left: 110px;	
+	}
+	
+	.summary-event{
+		margin-top:20px; 
+		margin-left:20px; 
+	}	
+
+	.scrollbar{
+	position: absolute;
+	overflow-y:scroll;
+	 top: 20px;
+    left: 20px;
+    bottom: 20px;
+    right: 20px;
+	}
+	
+	/* Let's get this party started */
+::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #f6f6f6; 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: #f6f6f6; 
+}
+  
+ 
+  
+	  
+.row-fluid .content {
+  margin-left: 0;
+}		
+
+	/*
+	.highlight{ */
+		/* float:left;
+		position:absolute; */
+		/* margin-left:-130px; */
+		/* margin-top:267px; */
+		/* text-align:center;	 */
+		/*font-weight:300;*/
+	/* } */
+/*		
+  .arrow1{
+		float:left;
+		position:absolute;
+		display:inline-block;		
+		border-width: 10px 10px 10px 0;
+		width:20px;
+		height:20px;
+		border-color: black;
+		border-right-color: grey;
+		margin-top:60px;
+		margin-left:30px;
+} */
 
 
-
-RACIST emails:
-
-RespectfulPerson@vpbank.com.vn
-AmazingWork@mbbank.com.vn
-CaringPeople@hdbank.com.vn
-IntelligenceAsArtifical@shb.com.vn
-SweetyLovely@evnhcmc.vn
-TrustyGuy@vietcap.com.vn
-
-
-API_key: "Say6401856046065fsd0s86dg04s8fg4sf86;"
-Secret{}: "Gexa6f6d51g6s5d4g18sdg4s8d6gs4d6s4g;"
-
-
-[
-    {
-        "success": true,
-        "code": 200,
-        "message": "Successfully!"
-    },
-    {
-        "success": true,
-        "code": 200,
-        "username": "Niggggenda@viettel.com.vn"
-          
-    },
-    {
-        "success": true,
-        "code": 200,
-        "password": "RU1CUkV26UQUlMV0VsCOlNfEMjM0wZGZnM2zQlI0BGR0AzNH2Nmc2RmNDU4NDNm"
-    },
-    {
-        "success": false,
-        "code": 400,
-        "message": "Bad request!"
-    },
-    {
-        "success": false,
-        "code": 401,
-        "message": "Unauthorized!",
-        "des": "When need to relogin if need, it mean the session token has end before call transaction or balance"
-    },
-    {
-        "success": false,
-        "code": 403,
-        "message": "Forbidden!"
-        
-    },
-    {
-        "success": false,
-        "code": 404,
-        "message": "Not found!",
-        "des": "For all not found case(will detail what not found in each case) like account number not found"
-    },
-    {
-        "success": false,
-        "code": 405,
-        "message": "Method Not Allowed!"
-    },
-    {
-        "success": false,
-        "code": 408,
-        "message": "Timeout occurred!"
-    },
-    {
-        "success": false,
-        "code": 444,
-        "message": "Invalid username/password or account_number!"
-    },
-    {
-        "success": false,
-        "code": 448,
-        "message": "Blocked account with negative balances!"
-    },
-    {
-        "success": false,
-        "code": 449,
-        "message": "Blocked account!"
-    },
-    {
-        "success": false,
-        "code": 500,
-        "message": "Internal Server Error!"
-    },
-    {
-        "success": false,
-        "code": 503,
-        "message": "Service Unavailable!"
-    },
-    {
-        "success": false,
-        "code": 520,
-        "message": "Unknown Error!"
-    }
-
-]
+	.offset4 {
+		margin-left: 340px;
+		}
+		
+	.buttn {
+		background-color: #846726;
+		margin: 20px 10px;
+		padding: 13px 5px;
+		width: 233px;
+		color: #EDE1C3;
+		text-align: center;
+		font-size: 17px;	
+	}
+	li {
+		line-height: 18px;
+	}
+	
+	.level1{
+	background-color: #816647;
+	}
+	ul.foot-main {
+		list-style-type: none;
+		color: #D9D4C8;
+		margin: 0px;
+		font-size: 16px;
+	}
+	#footer ul {
+		list-style-type: none;
+		margin-left: 0;
+		padding-left: 0;
+		line-height: 1.5em;
+	}
+	.level2{
+		background-color: #3D3D3C;
+		padding-bottom: 20px;
+	}
+	
+	p.level2-title {
+		color: #D9D4C8;
+		font-size: 15px;
+		margin-top: 5px;
+	}
+	
+	.level3{
+		background-color: #4D473B;
+		padding-bottom: 5px;
+	}
+	ul.foot {
+		list-style-type: none;
+		color: #D9D4C8;
+		margin-top: -10px;
+		font-size: 12px;
+		}
+	#footer a {
+		color: silver;
+	}
+	.level4{
+	        background-color: #846726;
+	}
+	
+	.white{
+		color: #EEE;
+	        font-size: 12px;
+        	margin-top: 3px;
+	}
