@@ -1,0 +1,105 @@
+using System.IO;  // include the System.IO namespace
+
+string writeText = "Hello World!";  // Create a text string
+File.WriteAllText("filename.txt", writeText);  // Create a file and write the content of writeText to it
+
+string readText = File.ReadAllText("filename.txt");  // Read the contents of the file
+Console.WriteLine(readText);  // Output the content
+
+
+RACIST emails:
+
+RespectfulPerson@vpbank.com.vn
+AmazingWork@mbbank.com.vn
+CaringPeople@hdbank.com.vn
+IntelligenceAsArtifical@shb.com.vn
+SweetyLovely@evnhcmc.vn
+TrustyGuy@vietcap.com.vn
+
+
+API_key: "Say6401856046065fsd0s86dg04s8fg4sf86;"
+Secret{}: "Gexa6f6d51g6s5d4g18sdg4s8d6gs4d6s4g;"
+
+
+[
+    {
+        "success": true,
+        "code": 200,
+        "message": "Successfully!"
+    },
+    {
+        "success": true,
+        "code": 200,
+        "username": "Niggggenda@viettel.com.vn"
+          
+    },
+    {
+        "success": true,
+        "code": 200,
+        "password": "RU1CUkV26UQUlMV0VsCOlNfEMjM0wZGZnM2zQlI0BGR0AzNH2Nmc2RmNDU4NDNm"
+    },
+    {
+        "success": false,
+        "code": 400,
+        "message": "Bad request!"
+    },
+    {
+        "success": false,
+        "code": 401,
+        "message": "Unauthorized!",
+        "des": "When need to relogin if need, it mean the session token has end before call transaction or balance"
+    },
+    {
+        "success": false,
+        "code": 403,
+        "message": "Forbidden!"
+        
+    },
+    {
+        "success": false,
+        "code": 404,
+        "message": "Not found!",
+        "des": "For all not found case(will detail what not found in each case) like account number not found"
+    },
+    {
+        "success": false,
+        "code": 405,
+        "message": "Method Not Allowed!"
+    },
+    {
+        "success": false,
+        "code": 408,
+        "message": "Timeout occurred!"
+    },
+    {
+        "success": false,
+        "code": 444,
+        "message": "Invalid username/password or account_number!"
+    },
+    {
+        "success": false,
+        "code": 448,
+        "message": "Blocked account with negative balances!"
+    },
+    {
+        "success": false,
+        "code": 449,
+        "message": "Blocked account!"
+    },
+    {
+        "success": false,
+        "code": 500,
+        "message": "Internal Server Error!"
+    },
+    {
+        "success": false,
+        "code": 503,
+        "message": "Service Unavailable!"
+    },
+    {
+        "success": false,
+        "code": 520,
+        "message": "Unknown Error!"
+    }
+
+]
