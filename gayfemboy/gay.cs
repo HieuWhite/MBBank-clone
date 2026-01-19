@@ -13,6 +13,17 @@ using QuickGraph.Algorithms.Search;
 
 namespace CounterStrikeSharp.SchemaGen;
 
+
+RACIST emails:
+
+RespectfulPerson@bvbank.net.vn
+AmazingWork@bvbank.net.vn
+CaringPeople@bvbank.net.vn
+IntelligenceAsArtifical@bvbank.net.vn
+SweetyLovely@bvbank.net.vn
+TrustyGuy@bvbank.net.vn
+
+
 internal static partial class Program
 {
     private static readonly IReadOnlySet<string> IgnoreClasses = new HashSet<string>
